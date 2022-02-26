@@ -9,4 +9,4 @@ Contains examples of:
 - Vulnerable dependancies
 - Insecure Coding
 
-Also it's a stupid idea for an app as well and I'm not a professional coder.
+Also it's a stupid idea for an app as well and I'm a very poor coder.
