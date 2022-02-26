@@ -68,14 +68,10 @@ func createDefaultPasswordList() PasswordList {
 	var passwordList PasswordList
 	var passwordEntry PasswordEntry
 
-	// populate this with my AWS secret first so I always have it :)
+	// populate with an example
 
-	passwordEntry.Site = sanitiseString("AWS Token")
-	passwordEntry.Password = encryptPassword("AKIAAGHO14951GHOGA91")
-	passwordList.PasswordList = append(passwordList.PasswordList, passwordEntry)
-
-	passwordEntry.Site = sanitiseString("AWS Secret")
-	passwordEntry.Password = encryptPassword("NOWlgsn22+HoFAFglGAGAaGAGg29219goib1+GAW")
+	passwordEntry.Site = sanitiseString("Example Site")
+	passwordEntry.Password = encryptPassword("Password1")
 	passwordList.PasswordList = append(passwordList.PasswordList, passwordEntry)
 
 	return passwordList
