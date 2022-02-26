@@ -14,6 +14,7 @@ import (
 	"github.com/microcosm-cc/bluemonday"
 )
 
+// Uncrackable encryption key because it's so long
 const encryptionKey = "BQqNyPTi50JCFMTw/b67hByjMVXZRwGha6wxVGkeihY="
 
 type PasswordList struct {
@@ -50,18 +51,24 @@ func readPasswordFile() PasswordList {
 }
 
 func displayPasswords(passwordList PasswordList) {
+
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("**********************************************************************")
+	fmt.Println("")
 	for i := 0; i < len(passwordList.PasswordList); i++ {
 		fmt.Println("Site: " + passwordList.PasswordList[i].Site)
 		fmt.Println("Password: " + decryptPassword(passwordList.PasswordList[i].Password))
 		fmt.Println("")
 	}
+	fmt.Println("**********************************************************************")
 }
 
 func createDefaultPasswordList() PasswordList {
 	var passwordList PasswordList
 	var passwordEntry PasswordEntry
 
-	// populate this with my AWS secret first
+	// populate this with my AWS secret first so I always have it :)
 
 	passwordEntry.Site = sanitiseString("AWS Token")
 	passwordEntry.Password = encryptPassword("AKIAAGHO14951GHOGA91")
@@ -112,6 +119,8 @@ func generatePassword() string {
 	return newPassword.String()
 }
 
+// This is for futureproofing for when this is a web applicatoin
+// Or something.
 func sanitiseString(targetString string) string {
 	p := bluemonday.UGCPolicy()
 	html := p.Sanitize(targetString)
@@ -124,4 +133,34 @@ func savePasswordFile(passwordList PasswordList) {
 
 	_ = ioutil.WriteFile("passwordstore.json", file, 0644)
 
+}
+
+func newPasswordManual() PasswordEntry {
+	var site string
+	var password string
+	var newEntry PasswordEntry
+
+	fmt.Println("Enter the site name:")
+	fmt.Scanln(&site)
+	fmt.Println("Enter the password")
+	fmt.Scanln(&password)
+
+	newEntry.Site = sanitiseString(site)
+	newEntry.Password = encryptPassword(password)
+	return newEntry
+}
+
+func newPasswordAuto() PasswordEntry {
+	var site string
+	var password string
+	var newEntry PasswordEntry
+
+	fmt.Println("Enter the site name:")
+	fmt.Scanln(&site)
+	password = generatePassword()
+	fmt.Println("The new password is " + password)
+
+	newEntry.Site = sanitiseString(site)
+	newEntry.Password = encryptPassword(password)
+	return newEntry
 }

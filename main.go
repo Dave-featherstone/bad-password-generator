@@ -10,8 +10,6 @@ func main() {
 
 	pwList := readPasswordFile()
 
-	fmt.Println(generatePassword())
-
 	for {
 		var menuOption int
 		fmt.Println("Welcome to your comamnd line password manager")
@@ -28,10 +26,12 @@ func main() {
 			displayPasswords(pwList)
 			continue
 		} else if menuOption == 2 {
-			fmt.Println("coming soon")
+			newEntry := newPasswordManual()
+			pwList.PasswordList = append(pwList.PasswordList, newEntry)
 			savePasswordFile(pwList)
 		} else if menuOption == 3 {
-			fmt.Println("coming soon")
+			newEntry := newPasswordAuto()
+			pwList.PasswordList = append(pwList.PasswordList, newEntry)
 			savePasswordFile(pwList)
 		} else if menuOption == 4 {
 			break
