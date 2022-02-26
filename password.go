@@ -14,7 +14,7 @@ import (
 	"github.com/microcosm-cc/bluemonday"
 )
 
-const encryptionKey = "FruitFly2020"
+const encryptionKey = "BQqNyPTi50JCFMTw/b67hByjMVXZRwGha6wxVGkeihY="
 
 type PasswordList struct {
 	PasswordList []PasswordEntry `json:"passwords"`
