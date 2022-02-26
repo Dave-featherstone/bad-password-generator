@@ -8,3 +8,5 @@ Contains examples of:
 - Hard Coded Passwords
 - Vulnerable dependancies
 - Insecure Coding
+
+Also it's a stupid idea for an app as well.
