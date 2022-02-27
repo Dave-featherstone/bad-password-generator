@@ -1,0 +1,35 @@
+name: Run Security Checks
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  gosec:
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v2
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@master
+        with:
+          args: ./...
+  nancy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Set up Go 1.x in order to write go.list file
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.13
+    - name: WriteGoList
+      run: go list -json -m all > go.list
+
+    - name: Nancy
+      uses: sonatype-nexus-community/nancy-github-action@main
